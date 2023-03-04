@@ -1,0 +1,13 @@
+#!/bin/sh
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
+[ -z "$FILES" ] && exit 0
+
+# Prettify all selected files
+for FILE in $FILES
+do
+  mvn prettier:write -Dprettier.inputGlobs=$FILE
+done
+# Add back the modified/prettified files to staging
+echo "$FILES" | xargs git add
+
+exit 0

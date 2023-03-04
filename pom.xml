@@ -15,6 +15,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<plugin.prettier.goal>write</plugin.prettier.goal>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -34,6 +35,57 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.hubspot.maven.plugins</groupId>
+				<artifactId>prettier-maven-plugin</artifactId>
+				<version>0.16</version>
+				<configuration>
+					<prettierJavaVersion>1.5.0</prettierJavaVersion>
+					<printWidth>90</printWidth>
+					<tabWidth>2</tabWidth>
+					<useTabs>false</useTabs>
+					<ignoreConfigFile>true</ignoreConfigFile>
+					<ignoreEditorConfig>true</ignoreEditorConfig>
+					<!-- Use <inputGlobs> to override the default input patterns -->
+<!--					<inputGlobs>-->
+<!--						&lt;!&ndash; These are the default patterns, you can omit <inputGlobs> entirely unless you want to override them &ndash;&gt;-->
+<!--						<inputGlob>src/main/java/**/*.java</inputGlob>-->
+<!--						<inputGlob>src/test/java/**/*.java</inputGlob>-->
+<!--					</inputGlobs>-->
+				</configuration>
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<phase>validate</phase>-->
+<!--						<goals>-->
+<!--							<goal>${plugin.prettier.goal}</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>copy-hooks</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/.git/hooks</outputDirectory>
+							<resources>
+								<resource>
+									<directory>git-hooks</directory>
+									<includes>
+										<include>pre-commit</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

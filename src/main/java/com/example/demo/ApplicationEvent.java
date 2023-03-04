@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ApplicationEvent {
-    @EventListener(ApplicationReadyEvent.class)
-    public void doSomethingAfterStartup() {
-        System.out.println("hello world, Running after application started");
-    }
 
+  @EventListener(ApplicationReadyEvent.class)
+  public void doSomethingAfterStartup() {
+    System.out.println("hello world, Running after application started");
+  }
 }
